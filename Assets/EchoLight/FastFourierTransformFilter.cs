@@ -28,7 +28,10 @@ public class FastFourierTransformFilter : MonoBehaviour
 
 		if (DebugEnabled)
 		{
-			Debug.LogFormat("DSP Buffer Length is {0} samples.", dspBufferLength);
+			Debug.LogFormat(
+				"DSP Buffer Length is {0} samples, thus {1} spectrum-amplitudes will be available.", 
+				dspBufferLength,
+				(dspBufferLength / 2));
 		}
 
 		scratchSamplesRealComponent = new float[dspBufferLength];
@@ -47,7 +50,7 @@ public class FastFourierTransformFilter : MonoBehaviour
 	
 	// NOTE: This function is executed on the audio-thread.
 	public void OnAudioFilterRead(
-		ref float[] inoutAudioSamples,
+		float[] inoutAudioSamples,
 		int channelCount)
 	{
 		if (fastFourierTransform == null)
@@ -71,7 +74,7 @@ public class FastFourierTransformFilter : MonoBehaviour
 		{
 			scratchSamplesRealComponent[index] *= cachedSamplingWindowScalars[index];
 		}
-		
+
 		System.Array.Clear(
 			scratchSamplesImaginaryComponent,
 			0, // startIndex
