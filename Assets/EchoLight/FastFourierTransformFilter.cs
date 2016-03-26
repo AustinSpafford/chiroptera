@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// General credit for the structure of this filter goes to the fine folks 
+// in this thread: http://forum.unity3d.com/threads/fft-how-to.253192/
+
 public class FastFourierTransformFilter : MonoBehaviour
 {
 	public int SourceChannelIndex = 0;
@@ -11,10 +14,7 @@ public class FastFourierTransformFilter : MonoBehaviour
 	{
 		get
 		{
-			return (
-				(outputSpectrumAmplitudes != null) ?
-					outputSpectrumAmplitudes.Length :
-					0);
+			return ((outputSpectrumAmplitudes != null) ? outputSpectrumAmplitudes.Length : 0);
 		}
 	}
 
