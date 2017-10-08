@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Text;
 
-public class SpectrumSweepTexture : MonoBehaviour
+public class SpectrumSweepTextureRenderer : MonoBehaviour
 {
 	public FastFourierTransformFilter SourceFastFourierTransform = null;
 
@@ -113,9 +113,9 @@ public class SpectrumSweepTexture : MonoBehaviour
 
 	private float[] latestSpectrumAmplitudes = null;
 	
-	public RenderTexture scratchCopyRenderTexture = null;
+	private RenderTexture scratchCopyRenderTexture = null;
 
-	public Texture2D scratchSpectrumInputTexture = null;
+	private Texture2D scratchSpectrumInputTexture = null;
 	private Color[] scratchSpectrumInputColors = null;
 
 	private int spectrumAmplitudesTexturePropertyID = -1;

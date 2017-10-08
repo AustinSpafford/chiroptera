@@ -42,16 +42,21 @@
 			half3 lightDir,
 			half atten)
 		{
-			// NOTE: The incidence is currently backwards, but there's currently no high-frequency data to render.
-			// float lightIncidenceFraction = ((-1 * dot(surface.Normal, lightDir)) * 0.5 + 0.5);
-			float lightIncidenceFraction = 0.1f;
-			float2 lightingRampTexCoords = float2((1.0f - atten), lightIncidenceFraction);
+			float surfaceToLightCosine = dot(surface.Normal, lightDir);
+
+			float frequencyTexCoord = 0.075f;
+			//float frequencyTexCoord = (surfaceToLightCosine * 0.1 + 0.1);
+
+			float2 lightingRampTexCoords = float2((1.0f - atten), frequencyTexCoord);
 
 			half3 rampSampleColor = tex2D(_LightingRampTex, lightingRampTexCoords).rgb;
 
 			half4 lightSampleColor;
 			lightSampleColor.rgb = (surface.Albedo * _LightColor0.rgb * rampSampleColor);
 			lightSampleColor.a = surface.Alpha;
+
+			float returnBrightnessFraction = max(0, surfaceToLightCosine);
+			lightSampleColor *= half4(returnBrightnessFraction, returnBrightnessFraction, returnBrightnessFraction, returnBrightnessFraction);
 
 			return lightSampleColor;
 		}

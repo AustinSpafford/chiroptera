@@ -1,4 +1,6 @@
-﻿Shader "Hidden/SpectrumSweepVanillaShader"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Hidden/SpectrumSweepVanillaShader"
 {
 	Properties
 	{
@@ -34,7 +36,7 @@
 				appdata v)
 			{
 				v2f o;
-				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = v.uv;
 				return o;
 			}
